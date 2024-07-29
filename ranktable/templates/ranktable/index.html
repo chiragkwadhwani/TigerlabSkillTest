@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    {% load crispy_forms_tags %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <br>
+    <h1 class="text-center"><u>Sports League Ranking Table</u></h1>
+    <br><br>
+    <div class="row">
+        <h3 class="col-6 d-flex justify-content-center">Upload CSV File</h3>
+        <h3 class="col-6 d-flex justify-content-center">Ranking Table</h3>
+    </div>
+    <br>
+    <div class="row">
+      <!-- <div class="col-xl-1"></div> -->
+      <div class="col-6 d-flex justify-content-center">
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+          <div class="form-inline">
+            {{form.csvfile|as_crispy_field}}
+            <button type="submit" class="btn btn-dark">Submit</button>
+          </div>
+        </form>
+      </div>
+      <div class="col-6 d-flex justify-content-center">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Ranking</th>
+              <th>Team</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for d in data %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{d.teamname}}</td>
+              <td>{{d.points}}</td>
+            </tr>
+            {% empty %}
+              <tr><td colspan="3">Teams List Not Found</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <h3 class="col d-flex justify-content-center">Games List</h3>
+    </div>
+    <div class="row">
+      <div class="col-9"></div>
+      <a href="/game/0/" class="col-xl-3"><button class="btn btn-dark btn-block">Add Game</button></a>
+    </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Teams</th>
+              <th>Score</th>
+              <th></th>
+              <th></th>
+              <!-- <th>Actions</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            {% for game in games %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{game.team1_name}} vs {{game.team2_name}}</td>
+              <td>{{game.team1_score}} - {{game.team2_score}}</td>
+              <td><a href="/delete/{{game.id}}/"><button class="btn btn-dark">Delete</button></a></td>
+              <td><a href="/game/{{game.id}}/"><button class="btn btn-dark">Edit</button></a></td>
+            </tr>
+            {% empty %}
+              <tr><td colspan="5">Games List Not Found</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

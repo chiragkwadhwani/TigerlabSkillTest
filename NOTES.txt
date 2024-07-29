@@ -1,0 +1,23 @@
+cmd: django-admin startproject sportsleaguerankingtable
+
+cmd: cd sportsleaguerankingtable
+
+cmd: django-admin startapp ranktable
+
+linux:
+mysql: CREATE DATABASE sportsleague CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+or
+windows:
+mysql: CREATE DATABASE sportsleague CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+cmd: cd ..
+
+cmd: python manage.py makemigrations
+
+cmd: python manage.py migrate
+
+cmd: pip install django-crispy-forms
+
+cmd: pip install pandas
+
+cmd: python manage.py runserver
