@@ -25,6 +25,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
             set -e
             cd ${{ secrets.REMOTE_DIR }}
+            git config --global --add safe.directory ${{ secrets.REMOTE_DIR }}
 
             echo "Pulling latest code from GitHub..."
             git fetch origin main
