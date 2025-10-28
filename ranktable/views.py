@@ -1,7 +1,5 @@
 from django.http.response import HttpResponseRedirect
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
-from django.contrib import messages
 from django.urls import reverse
 from ranktable.models import *
 from ranktable.forms import *
